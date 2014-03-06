@@ -204,6 +204,9 @@ def run_boblight():
     while not xbmc.abortRequested:
       xbmc.sleep(100)
       if not settings.bobdisable:
+        if not settings.is_working_time():
+          bob.bob_set_priority(255)
+          continue
         if not bob.bob_ping() or settings.reconnect:
           if not main.connectBoblight():
             continue

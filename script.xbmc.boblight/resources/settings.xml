@@ -10,6 +10,8 @@
     <setting id="sep2" type="sep" />
     <setting id="bobdisableonscreensaver" type="bool" label="32405" default="false" />
     <setting id="bobdisable" type="bool" label="32104" default="false" />
+    <setting id="enfrom" type="time" subsetting="true" enable="eq(-1,false)" label="32107" default="00:00" />
+    <setting id="ento" type="time" subsetting="true" enable="eq(-2,false)" label="32108" default="00:00" />
   </category>
   <category label="32200">
     <setting id="movie_preset" type="enum" label="32201" default="1" lvalues="32220|32221|32222|32223" />

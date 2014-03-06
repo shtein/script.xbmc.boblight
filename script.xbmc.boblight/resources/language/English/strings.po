@@ -48,7 +48,15 @@ msgctxt "#32106"
 msgid "Category"
 msgstr ""
 
-#empty strings from id 32107 to 32199
+msgctxt "#32107"
+msgid "When enabled, active starting at"
+msgstr ""
+
+msgctxt "#32108"
+msgid "When enabled, active until"
+msgstr ""
+
+#empty strings from id 32109 to 32199
 #Movie/MusicVideo/Other
 
 msgctxt "#32200"

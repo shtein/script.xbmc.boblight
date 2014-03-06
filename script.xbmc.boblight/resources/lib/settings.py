@@ -18,6 +18,7 @@
 '''
 
 import sys
+import datetime
 import xbmc, xbmcgui
 
 __scriptname__ = sys.modules[ "__main__" ].__scriptname__
@@ -29,6 +30,8 @@ __ID__   = sys.modules[ "__main__" ].__ID__
 
 from boblight import *
 from tools import log
+
+throwaway = datetime.datetime.strptime('20110101','%Y%m%d')
 
 bob = Boblight()
 
@@ -59,6 +62,8 @@ class settings():
     self.overwrite_cat_val          = int(__addon__.getSetting("overwrite_cat_val"))
     self.bobdisableonscreensaver    = __addon__.getSetting("bobdisableonscreensaver") == "true"
     self.bobdisable                 = __addon__.getSetting("bobdisable") == "true"
+    self.enabledfrom                = datetime.datetime.strptime(__addon__.getSetting("enfrom"), '%H:%M')
+    self.enabledto                  = datetime.datetime.strptime(__addon__.getSetting("ento"), '%H:%M')
     self.current_option             = ""
     
     if not self.networkaccess:
@@ -410,3 +415,26 @@ class settings():
       self.run_init = False
       xbmc.sleep(500)
     return True  
+  
+  def is_working_time(self):
+
+  #If from and do are the same then it is always enabled
+    if self.enabledfrom == self.enabledto:
+      return True
+
+  #Get current time
+    tmNow  = datetime.datetime.now()
+
+  #Adjust current time to match with from and to
+    tmFrom = self.enabledfrom.replace(year = tmNow.year, month = tmNow.month, day = tmNow.day)
+    tmTo   = self.enabledto.replace(year = tmNow.year, month = tmNow.month, day = tmNow.day)
+
+  #Compare
+    if tmTo < tmFrom:
+      return (tmNow >= tmFrom or tmNow <= tmTo)
+
+    if tmTo > tmFrom:
+      return (tmNow >= tmFrom and tmNow <= tmTo)
+
+  #Impossible
+    return False
